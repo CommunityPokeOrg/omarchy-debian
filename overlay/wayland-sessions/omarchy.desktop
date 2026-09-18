@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Omarchy (Debian)
+Comment=Omarchy-adapted Wayland session on Debian/Ubuntu
+# Prefer uwsm-managed Hyprland when uwsm exists; otherwise plain Hyprland.
+Exec=/bin/sh -c 'if command -v uwsm >/dev/null; then exec uwsm start -e -D Hyprland hyprland.desktop; else exec Hyprland; fi'
+TryExec=Hyprland
+Type=Application
+DesktopNames=Hyprland

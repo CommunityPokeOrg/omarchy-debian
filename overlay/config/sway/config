@@ -1,0 +1,92 @@
+# Omarchy-Debian Sway fallback config — mirrors overlay/config/hypr bindings.
+
+set $mainMod Mod4
+set $term xdg-terminal-exec
+
+# --- Startup ---
+exec waybar
+exec mako
+exec udiskie --tray
+exec wl-paste --watch cliphist store
+exec fcitx5 -d --replace
+exec swaybg -c '#1a1b26'
+
+# --- Input ---
+input * {
+  xkb_options compose:caps
+}
+input type:touchpad {
+  natural_scroll enabled
+  tap enabled
+  dwt enabled
+}
+
+# --- Look & feel ---
+gaps inner 5
+gaps outer 10
+default_border pixel 2
+client.focused #7aa2f7 #7aa2f7 #c0caf5 #bb9af7
+client.unfocused #414868 #414868 #565f89 #414868
+
+# --- Keybindings ---
+bindsym $mainMod+Return exec $term
+bindsym $mainMod+space exec fuzzel
+bindsym $mainMod+w kill
+bindsym $mainMod+Shift+q exec swaymsg exit
+bindsym $mainMod+f fullscreen
+bindsym $mainMod+Shift+t floating toggle
+
+bindsym $mainMod+Shift+f exec nautilus
+bindsym $mainMod+Shift+b exec xdg-open https://
+bindsym $mainMod+Shift+m exec $term btop
+bindsym $mainMod+Shift+d exec $term lazydocker
+
+bindsym Print exec grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym $mainMod+Print exec grim -g "$(slurp)" - | wl-copy
+
+bindsym $mainMod+Shift+l exec swaylock -c 1a1b26
+
+bindsym $mainMod+h focus left
+bindsym $mainMod+l focus right
+bindsym $mainMod+k focus up
+bindsym $mainMod+j focus down
+bindsym $mainMod+Left focus left
+bindsym $mainMod+Right focus right
+bindsym $mainMod+Up focus up
+bindsym $mainMod+Down focus down
+
+bindsym $mainMod+1 workspace 1
+bindsym $mainMod+2 workspace 2
+bindsym $mainMod+3 workspace 3
+bindsym $mainMod+4 workspace 4
+bindsym $mainMod+5 workspace 5
+bindsym $mainMod+6 workspace 6
+bindsym $mainMod+7 workspace 7
+bindsym $mainMod+8 workspace 8
+bindsym $mainMod+9 workspace 9
+bindsym $mainMod+0 workspace 10
+bindsym $mainMod+Shift+1 move container to workspace 1
+bindsym $mainMod+Shift+2 move container to workspace 2
+bindsym $mainMod+Shift+3 move container to workspace 3
+bindsym $mainMod+Shift+4 move container to workspace 4
+bindsym $mainMod+Shift+5 move container to workspace 5
+bindsym $mainMod+Shift+6 move container to workspace 6
+bindsym $mainMod+Shift+7 move container to workspace 7
+bindsym $mainMod+Shift+8 move container to workspace 8
+bindsym $mainMod+Shift+9 move container to workspace 9
+bindsym $mainMod+Shift+0 move container to workspace 10
+
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym $mainMod+Ctrl+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+
+include /etc/sway/config.d/*

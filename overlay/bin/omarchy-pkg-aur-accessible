@@ -1,0 +1,4 @@
+#!/bin/bash
+# Debian port: there is no AUR. Report as unreachable so callers skip AUR paths.
+echo "AUR is Arch-only; on Debian use external installers (see docs/MANUAL-STEPS.md)" >&2
+exit 1

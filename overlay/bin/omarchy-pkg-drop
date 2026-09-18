@@ -1,0 +1,4 @@
+#!/bin/bash
+# omarchy:summary=Remove packages by name.
+# omarchy:requires-sudo=true
+exec sudo apt-get remove -y "$@"

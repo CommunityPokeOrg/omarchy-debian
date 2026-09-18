@@ -1,0 +1,62 @@
+# Mapping of upstream install/omarchy-other.packages -> Debian/Ubuntu.
+# These are kernel/driver/optional packages in upstream; most are either
+# Arch-specific or only installed when matching hardware is detected.
+# TSV columns: arch_pkg	strategy	argument	notes
+autoconf-archive	apt	autoconf-archive	
+asusctl	manual		ASUS laptop controls; https://gitlab.com/asus-linux/asusctl (source/PPA)
+base	skip		Arch metapackage; Debian base system covers it
+base-devel	apt	build-essential	
+broadcom-wl-dkms	apt-hw	broadcom-sta-dkms	Requires contrib/non-free enabled
+btrfs-progs	apt	btrfs-progs	
+dkms	apt	dkms	
+egl-wayland	apt-hw	libnvidia-egl-wayland1	Only relevant with NVIDIA driver
+gst-plugin-pipewire	apt	gstreamer1.0-pipewire	
+gtk4-layer-shell	apt-any	libgtk4-layer-shell0|gtk4-layer-shell	Debian 13+/Ubuntu 25.04+
+libpulse	apt	libpulse0	
+intel-ipu7-camera	manual		Intel IPU7 camera stack; not packaged for Debian
+intel-lpmd	manual		Intel low-power daemon; not packaged for Debian
+intel-media-driver	apt-hw	intel-media-va-driver	non-free on Debian; enable non-free-firmware
+libva-intel-driver	apt-hw	i965-va-driver	
+libva-nvidia-driver	apt-hw	nvidia-vaapi-driver	community driver; Debian archive has no libva-nvidia-driver
+limine	skip		Bootloader; Debian uses GRUB/systemd-boot. See docs/LIMITATIONS.md
+limine-mkinitcpio-hook	skip		Arch hook
+limine-snapper-sync	skip		Arch/AUR only; snapper snapshots via systemd-boot need manual setup
+linux-firmware	apt-hw	firmware-linux	Debian splits into firmware-linux-free/nonfree; enable non-free-firmware
+linux-omarchy	skip		Omarchy kernel; Debian stock kernel used instead
+linux-omarchy-headers	skip		
+macbook12-spi-driver-dkms	manual		MacBook12 SPI driver DKMS; build from source if needed
+nvidia-580xx-dkms	skip		Versioned AUR-style name; use `nvidia-driver` below
+nvidia-dkms	apt-hw	nvidia-driver	Requires contrib/non-free; or use ubuntu-drivers on Ubuntu
+nvidia-open-dkms	skip		Covered by nvidia-driver on recent releases
+nvidia-580xx-utils	skip		
+nvidia-utils	skip		Covered by nvidia-driver
+lib32-nvidia-580xx-utils	skip		
+lib32-nvidia-utils	skip		Enable multiarch + nvidia-driver-libs:i386 if needed
+pipewire	apt	pipewire	
+pipewire-alsa	apt	pipewire-alsa	
+pipewire-jack	apt	pipewire-jack	
+pipewire-pulse	apt	pipewire-pulse	
+qt6-wayland	apt	qt6-wayland	
+snapper	apt	snapper	Needs btrfs root; snapshot tooling optional on Debian
+sof-firmware	apt-hw	firmware-sof-signed	non-free-firmware
+thermald	apt-hw	thermald	
+webp-pixbuf-loader	apt	webp-pixbuf-loader	
+yay-debug	skip		
+tuxedo-drivers-nocompatcheck-dkms	manual		TUXEDO laptops; https://gitlab.com/tuxedocomputers/development/packages/tuxedo-drivers
+yt6801-dkms	manual		Motorcomm ethernet DKMS; source build
+zram-generator	apt	systemd-zram-generator	
+libvpl	apt-hw	libvpl2	Intel VPL runtime; non-free
+vpl-gpu-rt	apt-hw	libvpl-tools	
+vulkan-intel	apt-hw	mesa-vulkan-drivers	
+vulkan-radeon	apt-hw	mesa-vulkan-drivers	
+vulkan-asahi	skip		Asahi Linux only
+linux-firmware-marvell	skip		Covered by firmware-linux
+dell-xps-touchpad-haptics	manual		Omarchy AUR; kernel patches for Dell XPS touchpad
+dell-xps13-sidecar-amps	manual		Omarchy AUR; XPS 13 speaker amps firmware
+lsp-plugins-lv2	apt	lsp-plugins-lv2	
+apple-bcm-firmware	manual		T2 Mac firmware; T2 project provides Debian packages (wiki.t2linux.org)
+apple-t2-audio-config	manual		
+linux-t2	manual		T2 kernel; use t2linux repos
+linux-t2-headers	manual		
+t2fanrd	manual		
+qmk-hid	skip		udev rule only; overlay ships the rule file

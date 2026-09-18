@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Omarchy (Sway fallback)
+Comment=Omarchy-adapted session on the Sway compositor
+Exec=sway
+TryExec=sway
+Type=Application
+DesktopNames=sway

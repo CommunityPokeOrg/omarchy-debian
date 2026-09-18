@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "AUR does not exist on Debian; nothing to update." >&2

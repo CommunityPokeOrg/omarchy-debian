@@ -1,0 +1,6 @@
+#!/bin/bash
+# omarchy:summary=Reinstall the apt-managed omarchy base set.
+# omarchy:requires-sudo=true
+set -e
+OMARCHY_DEBIAN_PATH=${OMARCHY_DEBIAN_PATH:-$HOME/.local/share/omarchy-debian}
+"$OMARCHY_DEBIAN_PATH/install.sh" --yes --phases 10-apt-deps.sh

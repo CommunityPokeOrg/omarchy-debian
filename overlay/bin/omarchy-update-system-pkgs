@@ -1,0 +1,7 @@
+#!/bin/bash
+# omarchy:summary=Update all Debian packages.
+# omarchy:requires-sudo=true
+set -e
+sudo apt-get update
+sudo apt-get full-upgrade -y
+sudo apt-get autoremove -y

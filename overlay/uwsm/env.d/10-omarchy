@@ -1,0 +1,14 @@
+# Debian port of upstream default/uwsm/env.d/10-omarchy.
+# UWSM doesn't source /etc/profile.d — export the session env directly.
+
+export OMARCHY_PATH="${OMARCHY_PATH:-$HOME/.local/share/omarchy}"
+export OMARCHY_DEBIAN_PATH="${OMARCHY_DEBIAN_PATH:-$HOME/.local/share/omarchy-debian}"
+
+# Overlay bin first (apt-backed omarchy-pkg-* shims), then upstream bin.
+PATH="$OMARCHY_DEBIAN_PATH/overlay/bin:$OMARCHY_PATH/bin:$HOME/.local/bin:$PATH"
+export PATH
+
+export TERMINAL=xdg-terminal-exec
+export EDITOR=nvim
+
+[ -f "$HOME/.config/uwsm/default" ] && . "$HOME/.config/uwsm/default"

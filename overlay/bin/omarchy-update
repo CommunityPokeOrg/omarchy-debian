@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# omarchy:summary=Update Omarchy and Debian system packages
+# omarchy:args=[-y]
+# omarchy:requires-sudo=true
+# Debian port: upstream's omarchy-update orchestrates pacman/AUR/limine/snapper
+# steps that don't exist here; this does the apt equivalent and refreshes the
+# pinned upstream checkout.
+
+set -e
+
+echo "==> apt update + full-upgrade"
+sudo apt-get update
+sudo apt-get full-upgrade ${1:+$1}
+sudo apt-get autoremove ${1:+$1}
+
+if [[ -d ${OMARCHY_PATH:-$HOME/.local/share/omarchy}/.git ]]; then
+  echo "==> upstream omarchy checkout"
+  git -C "${OMARCHY_PATH:-$HOME/.local/share/omarchy}" fetch --quiet origin || true
+  echo "    pinned ref: ${OMARCHY_UPSTREAM_REF:-see install/30-upstream.sh}"
+  echo "    (update the pin in install/30-upstream.sh to move to a newer upstream)"
+fi

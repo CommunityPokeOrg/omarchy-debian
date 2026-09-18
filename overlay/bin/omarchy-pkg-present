@@ -1,0 +1,5 @@
+#!/bin/bash
+# omarchy:summary=Exit 0 when all named packages are installed.
+for pkg in "$@"; do
+  dpkg -s "$pkg" >/dev/null 2>&1 || exit 1
+done

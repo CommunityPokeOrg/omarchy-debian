@@ -1,0 +1,153 @@
+# Mapping of upstream install/omarchy-base.packages -> Debian/Ubuntu.
+# TSV columns: arch_pkg	strategy	argument	notes
+# Strategies: apt | apt-any (| separated candidates) | external | manual | skip
+aether	skip		Omarchy AUR package (screensaver/lock screen); no Debian equivalent. See docs/MANUAL-STEPS.md
+alsa-utils	apt	alsa-utils
+asdcontrol	skip		AUR-only (Apple Studio Display brightness); build from source if needed
+avahi	apt	avahi-daemon
+bash-completion	apt	bash-completion
+bat	apt	bat	Debian binary is `batcat`; installer links ~/.local/bin/bat
+bluez	apt	bluez
+bluez-tools	apt	bluez-tools
+bluez-utils	skip		Folded into Debian `bluez` (bluetoothctl, btmgmt)
+bolt	apt	bolt
+brightnessctl	apt	brightnessctl
+btop	apt	btop
+chromium	apt-any	chromium|chromium-browser	Ubuntu ships a snap stub for `chromium`; see docs/LIMITATIONS.md
+clang	apt	clang
+cliamp	skip		AUR-only CLI music player; install from source if wanted
+cups	apt	cups
+cups-filters	apt	cups-filters
+cups-pk-helper	apt	cups-pk-helper
+ddcutil	apt	ddcutil
+docker	apt-any	docker.io|docker-ce	Uses distro docker.io; docker-ce repo optional, see docs/MANUAL-STEPS.md
+docker-buildx	apt-any	docker-buildx|docker-buildx-plugin
+docker-compose	apt-any	docker-compose-v2|docker-compose-plugin|docker-compose
+dosfstools	apt	dosfstools
+dotnet-runtime	manual		Not in Debian main; use packages.microsoft.com repo or `mise use -g dotnet`
+dua-cli	apt-any	dua-cli	Only in forky/sid on Debian; external fallback installs upstream binary
+evince	apt	evince
+exfatprogs	apt	exfatprogs
+expac	skip		pacman tool, meaningless on Debian
+eza	apt-any	eza	Absent before Ubuntu 24.10/Debian 13; external fallback below
+fakeroot	apt	fakeroot
+fastfetch	apt-any	fastfetch	Absent before Ubuntu 24.10/Debian 13; `external:fastfetch` handles older
+fcitx5	apt	fcitx5
+fcitx5-gtk	apt-any	fcitx5-frontend-gtk3|fcitx5-gtk
+fcitx5-qt	apt-any	fcitx5-frontend-qt5
+fd	apt	fd-find	Debian binary is `fdfind`; installer links ~/.local/bin/fd
+ffmpegthumbnailer	apt	ffmpegthumbnailer
+fontconfig	apt	fontconfig
+foot	apt	foot
+fzf	apt	fzf
+git	apt	git
+gnome-keyring	apt	gnome-keyring
+gnome-themes-extra	apt	gnome-themes-extra
+grim	apt	grim
+gpu-screen-recorder	manual		Not packaged for Debian; upstream offers Flatpak/source. Optional.
+gum	external	gum	Charm repo/GitHub .deb
+gvfs-mtp	apt	gvfs-backends	Debian combines MTP/NFS/SMB backends in gvfs-backends
+gvfs-nfs	apt	gvfs-backends	Debian combines MTP/NFS/SMB backends in gvfs-backends
+gvfs-smb	apt	gvfs-backends	Debian combines MTP/NFS/SMB backends in gvfs-backends
+herdr	skip		Omarchy AUR daemon (job runner); not ported
+hyprland	apt-any	hyprland	In Debian 13+ / Ubuntu 24.10+ only; older releases need a source build (docs/MANUAL-STEPS.md)
+hyprland-guiutils	manual		Hyprland ecosystem lib; source build when building Hyprland anyway
+hyprland-preview-share-picker	manual		Omarchy AUR package
+hyprpicker	apt-any	hyprpicker
+hyprsunset	apt-any	hyprsunset
+imagemagick	apt	imagemagick
+imv	apt-any	imv	imv-wayland on some releases
+inetutils	apt	inetutils-ping
+inotify-tools	apt	inotify-tools
+inxi	apt	inxi
+llvm	apt	llvm
+networkmanager	apt	network-manager
+jq	apt	jq
+kdenlive	apt	kdenlive
+kernel-modules-hook	skip		Arch mkinitcpio hook; Debian uses initramfs-tools automatically
+lazydocker	external	lazydocker	GitHub release tarball
+lazygit	external	lazygit	GitHub release .deb/tarball
+less	apt	less
+libsecret	apt	libsecret-tools	Runtime lib libsecret-1-0 pulled automatically
+libvips	apt	libvips-tools
+libyaml	apt	libyaml-dev	Arch ships the lib; Debian splits into -dev
+libreoffice-fresh	apt	libreoffice
+localsend	apt-any	localsend	Debian 13+/Ubuntu 24.10+; otherwise Flatpak
+lua51	apt	lua5.1
+luarocks	apt	luarocks
+man-db	apt	man-db
+mariadb-libs	apt	libmariadb3
+mise-bin	external	mise	Official mise apt repository
+moonlight-qt	apt-any	moonlight-qt	Not in Debian main — Flatpak fallback (com.moonlight_stream.Moonlight)
+mpv	apt	mpv
+mpv-mpris	manual		MPRIS plugin; build from https://github.com/hoyon/mpv-mpris if wanted
+nautilus	apt	nautilus
+nautilus-python	apt-any	python3-nautilus|nautilus-python
+gnome-disk-utility	apt	gnome-disk-utility
+noto-fonts	apt	fonts-noto
+noto-fonts-cjk	apt	fonts-noto-cjk
+noto-fonts-emoji	apt	fonts-noto-color-emoji
+nss-mdns	apt	libnss-mdns
+nvim	apt	neovim
+obs-studio	apt	obs-studio
+obsidian	external	obsidian	Official .deb from obsidian.md
+omacalc	skip		Omarchy web app; replaced by per-user webapp wrappers (optional)
+omacut	skip		Omarchy web app
+omawrite	skip		Omarchy web app
+omarchy-nvim	manual		Ships in omacom/omarchy-pkgs; copy its nvim config or use your own
+pacman-contrib	skip		pacman tooling
+pamixer	apt	pamixer
+pinta	manual		Not in Debian main (removed from trixie); install via Flatpak (com.github.PintaProject.Pinta)
+plocate	apt	plocate
+plymouth	apt	plymouth	plymouth-themes pulled by 60-services when enabling the splash
+postgresql-libs	apt	libpq5
+power-profiles-daemon	apt	power-profiles-daemon
+python-gobject	apt	python3-gi
+python-poetry-core	apt	python3-poetry-core
+qemu-user-static-binfmt	apt	qemu-user-static	binfmt-support pulled automatically
+qrencode	apt	qrencode
+qt6-imageformats	apt	qt6-image-formats-plugins
+qt6-multimedia	apt	libqt6multimedia6
+qt6-multimedia-ffmpeg	skip		FFmpeg Qt6 backend is built into Debian libqt6multimedia6
+quickshell	manual		Not packaged for Debian; the Omarchy shell (bar/launcher) needs a source build. The overlay ships a waybar fallback.
+ripgrep	apt	ripgrep
+ruby	apt	ruby-full
+sddm	apt	sddm
+slurp	apt	slurp
+socat	apt	socat
+starship	apt-any	starship	external:starship fallback for releases without it
+sushi	apt-any	gnome-sushi|sushi
+system-config-printer	apt	system-config-printer
+tensaku	skip		Omarchy AUR package
+tesseract	apt	tesseract-ocr
+tesseract-data-eng	apt	tesseract-ocr-eng
+tldr	apt-any	tldr|tealdeer
+tmux	apt	tmux
+tobi-try	skip		Omarchy AUR package
+tree-sitter-cli	apt-any	tree-sitter-cli	external:tree-sitter for older releases
+ttf-ia-writer	manual		Proprietary font fetched from upstream tarball; see docs/MANUAL-STEPS.md
+ttf-jetbrains-mono-nerd-basic	external	nerd-fonts	Nerd Fonts release download
+ttfx	skip		Omarchy AUR package
+tzupdate	manual		AUR tool; use `timedatectl`/tzdata instead
+udiskie	apt	udiskie
+ufw	apt	ufw
+ufw-docker	manual		GitHub install script; run after ufw is active
+unzip	apt	unzip
+usage	external	usage	jdx/usage; installed via mise when available
+uwsm	apt-any	uwsm	Debian 13+/Ubuntu 25.04+; older releases: pipx install uwsm
+vi	apt	vim
+whois	apt	whois
+wireless-regdb	apt	wireless-regdb
+wireplumber	apt	wireplumber
+wl-clipboard	apt	wl-clipboard
+wtype	apt	wtype
+woff2-font-awesome	apt	fonts-font-awesome	Closest Debian match
+xdg-desktop-portal-gtk	apt	xdg-desktop-portal-gtk
+xdg-desktop-portal-hyprland	apt-any	xdg-desktop-portal-hyprland|xdg-desktop-portal-wlr
+xdg-terminal-exec	external	xdg-terminal-exec	Upstream script installed from git
+xournalpp	apt	xournalpp
+yaru-icon-theme	apt-any	yaru-theme-icon	Ubuntu only; Debian uses adwaita-icon-theme fallback
+yay	skip		AUR helper; not needed
+yt-dlp	apt-any	yt-dlp	pipx fallback for older releases
+zbar	apt	zbar-tools
+zoxide	apt	zoxide

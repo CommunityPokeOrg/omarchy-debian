@@ -1,0 +1,31 @@
+/* Minimal Omarchy-ish bar styling (Tokyo Night palette). */
+* {
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 12px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(26, 27, 38, 0.9);
+  color: #c0caf5;
+  border-bottom: 1px solid #414868;
+}
+
+#workspaces button {
+  padding: 0 6px;
+  color: #565f89;
+}
+
+#workspaces button.active {
+  color: #7aa2f7;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 8px;
+}

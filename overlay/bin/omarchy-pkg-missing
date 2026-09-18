@@ -1,0 +1,6 @@
+#!/bin/bash
+# omarchy:summary=Exit 0 when any named package is NOT installed.
+for pkg in "$@"; do
+  dpkg -s "$pkg" >/dev/null 2>&1 || exit 0
+done
+exit 1

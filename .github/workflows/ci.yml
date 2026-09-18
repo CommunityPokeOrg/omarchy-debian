@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run offline validation
+        run: test/validate.sh
+      - name: shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          shellcheck -x -S warning install.sh lib/*.sh install/*.sh overlay/bin/* test/*.sh
+
+  apt-resolve:
+    strategy:
+      matrix:
+        image: [debian:trixie, ubuntu:24.04, ubuntu:25.04]
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test prerequisites
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq sudo git curl ca-certificates >/dev/null
+      - name: Dry-run installer
+        run: ./install.sh --yes --dry-run
+      - name: Real apt phase (container-safe)
+        run: ./install.sh --yes --phases 00-preflight.sh,10-apt-deps.sh

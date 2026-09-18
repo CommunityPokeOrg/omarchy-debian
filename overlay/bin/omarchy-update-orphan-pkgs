@@ -1,0 +1,4 @@
+#!/bin/bash
+# omarchy:summary=Remove orphaned packages (apt autoremove).
+# omarchy:requires-sudo=true
+exec sudo apt-get autoremove -y

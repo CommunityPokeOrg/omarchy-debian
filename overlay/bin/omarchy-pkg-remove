@@ -1,0 +1,17 @@
+#!/bin/bash
+# omarchy:summary=Fuzzy-pick installed packages to remove.
+# omarchy:requires-sudo=true
+# Debian port.
+
+fzf_args=(
+  --multi
+  --preview 'dpkg -s {1} 2>/dev/null | grep -E "^(Package|Status|Description|Installed-Size)"'
+  --preview-window 'down:65%:wrap'
+  --color 'pointer:red,marker:red'
+)
+
+pkg_names=$(dpkg-query -W -f='${Package}\n' | sort | fzf "${fzf_args[@]}")
+
+if [[ -n $pkg_names ]]; then
+  echo "$pkg_names" | tr '\n' ' ' | xargs sudo apt-get remove -y
+fi

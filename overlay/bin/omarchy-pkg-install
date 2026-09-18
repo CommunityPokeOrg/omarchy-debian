@@ -1,0 +1,17 @@
+#!/bin/bash
+# omarchy:summary=Fuzzy-pick packages from the Debian/Ubuntu archive to install.
+# omarchy:requires-sudo=true
+# Debian port: replaces the pacman/yay implementation.
+
+fzf_args=(
+  --multi
+  --preview 'apt-cache show {1} 2>/dev/null | head -40'
+  --preview-window 'down:65%:wrap'
+  --color 'pointer:green,marker:green'
+)
+
+pkg_names=$(apt-cache pkgnames | sort | fzf "${fzf_args[@]}")
+
+if [[ -n $pkg_names ]]; then
+  echo "$pkg_names" | tr '\n' ' ' | xargs sudo apt-get install -y
+fi
