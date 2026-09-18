@@ -4,7 +4,7 @@
 
 set -uo pipefail
 ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-cd "$ROOT"
+cd "$ROOT" || exit 1
 
 fail=0
 say() { printf '%s\n' "$*"; }
@@ -22,7 +22,7 @@ done < <(find . -name '*.sh' -o -name 'install.sh' -o -path './overlay/bin/*' | 
 
 say "== map format check =="
 for m in packages/*.map; do
-  while IFS=$'\t' read -r pkg strategy arg notes; do
+  while IFS=$'\t' read -r pkg strategy arg _notes; do
     [[ -z $pkg || $pkg == \#* ]] && continue
     case "$strategy" in
       apt | apt-any | apt-hw | external | manual | skip) ;;
